@@ -22,7 +22,7 @@ class SortableTable {
 		this.pagesCount 		= this.getPagesCount();
 
 		this.searchField;
-		this.pagination;
+		this.pagination 		= document.getElementById('pagination');
 		
 		this.sortColumn 		= 'name';
 		this.isSortDirectionAsc = true;
@@ -53,6 +53,7 @@ class SortableTable {
 			);
 		});
 		this.filteredData = filteredData;
+		this.addPagination();
 		this.renderTable(this.filteredData);
 	}
 
@@ -137,19 +138,13 @@ class SortableTable {
 	}
 
 	addPagination() {
-		let pagination = '<section id="pagination">';
-		for(let i = 1; i <= this.getPagesCount(); i++) {
-			pagination += `<button>${i}</button>`;
-		}
-		pagination += '</section>';
-		this.result.insertAdjacentHTML('afterend', pagination );
-		
-		this.pagination = document.getElementById('pagination');
-		this.handlePagination();
-	}
 
-	removePagination() {
-		this.pagination.remove();
+		let pagination = '';
+		for(let i = 1; i <= this.getPagesCount(); i++)
+			pagination += `<button>${i}</button>`;
+		this.pagination.innerHTML = pagination;
+		
+		this.handlePagination();
 	}
 
 	handlePagination() {
